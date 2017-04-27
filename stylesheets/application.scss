@@ -1,2 +1,8 @@
-@import 'base/reset';
+$bootstrap-sass-asset-helper: true;
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import 'base/global';
 @import 'base/mixins';
+
+// components
+@import 'components/header';

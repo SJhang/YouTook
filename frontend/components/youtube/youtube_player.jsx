@@ -1,6 +1,8 @@
 import React from 'react';
 
+// hash for all the video APIs
 window.videoAPIloaded = {};
+// initialize youtube key for is api loaded to false
 let loadYT = window.videoAPIloaded.youtube = false;
 
 class YouTubePlayer extends React.Component {
@@ -9,6 +11,8 @@ class YouTubePlayer extends React.Component {
   }
 
   componentDidMount() {
+    // if the youtube API is not called use Promise to call ifram_api from youtube.com
+    // thenable for Promises
     if (!loadYT) {
       loadYT = new Promise((resolve) => {
         const tag = document.createElement('script');
@@ -18,8 +22,8 @@ class YouTubePlayer extends React.Component {
         window.onYouTubeIframeAPIReady = () => resolve(window.YT);
       });
     }
+    // when successfully called, create a player (iframe) using the params
     loadYT.then((YT) => {
-      debugger;
       this.player = new YT.Player(this.youtubePlayerAnchor, {
         height: this.props.height || 315,
         width: this.props.width || 500,
@@ -32,12 +36,14 @@ class YouTubePlayer extends React.Component {
   }
 
   onPlayerStateChange(e) {
-
+    debugger;
   }
-
+  
   render () {
     return (
-      <div></div>
+      <section id="youtube-content-wrapper">
+        <div ref={r => {this.youtubePlayerAnchor = r}}></div>
+      </section>
     )
   }
 }

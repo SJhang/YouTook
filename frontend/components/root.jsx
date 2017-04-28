@@ -10,8 +10,13 @@ class Root extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { params: "" };
-    this.queryList = [];
+    this.state = {
+      params: "",
+      queryList: [],
+      playing: ""
+    };
+
+    this.updateQueryLists = this.updateQueryLists.bind(this)
   }
 
   // asynchronously fetch list of youtube videos using the input params
@@ -36,33 +41,14 @@ class Root extends React.Component {
     console.log(e);
   }
 
-  // update youtube list results from the query
+  // update state with youtube list results on success ajax call
   updateQueryLists(data) {
-    new Promise((resolve) => {
-      this.queryList = data.items ? data.items : '';
-      this.queryList.map((item, idx) => {
-        const parentNode = document.querySelector('.search-results');
-        // with document.querySelector, appendChild doesn't work with react element
-        // instead use createElements
-        const videoPreview = document.createElement('li');
-        videoPreview.key = {idx};
-        videoPreview.className = "video-preview";
-        videoPreview.videoId = item.id.videoId;
+    this.setState({ queryList: data.items });
+  }
 
-        const thumbnail = document.createElement('img');
-        thumbnail.src = item.snippet.thumbnails.high.url;
-
-        const desc = document.createElement('span');
-        desc.innerHTML = item.snippet.title;
-
-        videoPreview.appendChild(thumbnail);
-        videoPreview.appendChild(desc);
-
-        parentNode.appendChild(videoPreview);
-      });
-      // resolve(this.queryList);
-    })
-    // .then(list => console.log(list));
+  renderLists() {
+    let queryList = this.state.queryList;
+    return (<YouTubeList queryList={queryList}/>);
   }
 
   // handle input
@@ -80,13 +66,13 @@ class Root extends React.Component {
     return (
       <div id="outer-wrap">
         <Header />
-        <SearchBar
-          params={this.state.params}
-          handleChange={e => this.handleChange(e)}
-          handleSubmit={e => this.handleSubmit(e)}/>
         <div id="main-content-wrap">
-          <div className="currently-playing"></div>
-          <YouTubeList />
+          <SearchBar
+            params={this.state.params}
+            handleChange={e => this.handleChange(e)}
+            handleSubmit={e => this.handleSubmit(e)}/>
+          <YouTubePlayer />
+          {this.renderLists()}
         </div>
       </div>
     )

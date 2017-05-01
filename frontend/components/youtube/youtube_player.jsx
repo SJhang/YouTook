@@ -10,12 +10,21 @@ class YouTubePlayer extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.loadYouTubePlayer(this.props.videoId);
+  }
+
+  componentWillUpdate(nextState) {
+
+  }
+
+  loadYouTubePlayer(id) {
     // if the youtube API is not called use Promise to call ifram_api from youtube.com
     // thenable for Promises
     if (!loadYT) {
       loadYT = new Promise((resolve) => {
         const tag = document.createElement('script');
+        tag.className="youtube-script";
         tag.src = 'https://www.youtube.com/iframe_api';
         const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -24,25 +33,32 @@ class YouTubePlayer extends React.Component {
     }
     // when successfully called, create a player (iframe) using the params
     loadYT.then((YT) => {
-      this.player = new YT.Player(this.youtubePlayerAnchor, {
-        height: this.props.height || 315,
-        width: this.props.width || 500,
-        videoId: this.props.YTid,
-        options: {
-          onStateChange: this.onPlayerStateChange
-        }
-      });
+      this.updateYouTubeOptions(id)
+    });
+  }
+
+  updateYouTubeOptions(id) {
+    window.player = new YT.Player(this.youtubePlayerAnchor, {
+      height: this.props.height || 315,
+      width: this.props.width || 500,
+      videoId: id,
+      playerVars: {
+        color: 'white'
+      },
+      options: {
+        onStateChange: this.onPlayerStateChange
+      }
     });
   }
 
   onPlayerStateChange(e) {
     debugger;
   }
-  
+
   render () {
     return (
       <section id="youtube-content-wrapper">
-        <div ref={r => {this.youtubePlayerAnchor = r}}></div>
+        <div id="youtube-player" ref={r => { this.youtubePlayerAnchor = r}}></div>
       </section>
     )
   }

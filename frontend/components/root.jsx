@@ -12,8 +12,7 @@ class Root extends React.Component {
 
     this.state = {
       params: "",
-      queryList: [],
-      playing: ""
+      queryList: []
     };
 
     this.updateQueryLists = this.updateQueryLists.bind(this)
@@ -71,7 +70,6 @@ class Root extends React.Component {
             params={this.state.params}
             handleChange={e => this.handleChange(e)}
             handleSubmit={e => this.handleSubmit(e)}/>
-          <YouTubePlayer />
           {this.renderLists()}
         </div>
       </div>

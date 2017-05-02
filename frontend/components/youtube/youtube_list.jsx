@@ -20,7 +20,7 @@ class YouTubeList extends React.Component {
             <p className="mb-0">{item.snippet.title}</p>
             <footer className="blockquote-footer">{item.snippet.channelTitle}</footer>
           </blockquote>
-          <button>Add list</button>
+
         </div>
       </div>
     ));
@@ -30,18 +30,34 @@ class YouTubeList extends React.Component {
     console.log(id);
     window.player.cueVideoById(id);
   }
-  //
-  // renderYouTubePlayer () {
-  //   console.log(this.state.currentVideo)
-  //   if (this.state.currentVideo) {
-  //     return (<YouTubePlayer videoId={this.state.currentVideo}/>);
-  //   }
-  // }
+
+  renderAddToList() {
+    if (typeof(localStorage) === undefined) {
+      alert("This Browser does not support list");
+    } else {
+      try {
+        return (
+          <button onClick={e => this.handleAddToList(e)}>Add list</button>
+        )
+      } catch (e) {
+      }
+    }
+  }
+
+  handleAddToList(e) {
+
+  }
+
+  renderYouTubePlayer () {
+    console.log(this.state.currentVideo)
+    if (this.state.currentVideo) {
+      return (<YouTubePlayer videoId={this.state.currentVideo}/>);
+    }
+  }
 
   render () {
     return(
       <span className="search-results">
-        <YouTubePlayer />
         {this.renderList()}
       </span>
     )

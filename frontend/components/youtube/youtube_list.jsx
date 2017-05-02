@@ -58,6 +58,7 @@ class YouTubeList extends React.Component {
   render () {
     return(
       <span className="search-results">
+        <YouTubePlayer />
         {this.renderList()}
       </span>
     )

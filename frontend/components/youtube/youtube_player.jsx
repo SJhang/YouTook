@@ -8,6 +8,7 @@ let loadYT = window.videoAPIloaded.youtube = false;
 class YouTubePlayer extends React.Component {
   constructor(props) {
     super(props);
+
   }
 
   componentWillMount() {

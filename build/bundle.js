@@ -21638,6 +21638,7 @@ var YouTubeList = function (_React$Component) {
       return _react2.default.createElement(
         'span',
         { className: 'search-results' },
+        _react2.default.createElement(_youtube_player2.default, null),
         this.renderList()
       );
     }

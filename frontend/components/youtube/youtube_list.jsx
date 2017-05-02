@@ -48,12 +48,12 @@ class YouTubeList extends React.Component {
 
   }
 
-  renderYouTubePlayer () {
-    console.log(this.state.currentVideo)
-    if (this.state.currentVideo) {
-      return (<YouTubePlayer videoId={this.state.currentVideo}/>);
-    }
-  }
+  // renderYouTubePlayer () {
+  //   console.log(this.state.currentVideo)
+  //   return (<YouTubePlayer videoId={this.state}/>);
+  //   // if (this.state.currentVideo) {
+  //   // }
+  // }
 
   render () {
     return(

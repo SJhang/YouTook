@@ -21624,14 +21624,14 @@ var YouTubeList = function (_React$Component) {
   }, {
     key: 'handleAddToList',
     value: function handleAddToList(e) {}
-  }, {
-    key: 'renderYouTubePlayer',
-    value: function renderYouTubePlayer() {
-      console.log(this.state.currentVideo);
-      if (this.state.currentVideo) {
-        return _react2.default.createElement(_youtube_player2.default, { videoId: this.state.currentVideo });
-      }
-    }
+
+    // renderYouTubePlayer () {
+    //   console.log(this.state.currentVideo)
+    //   return (<YouTubePlayer videoId={this.state}/>);
+    //   // if (this.state.currentVideo) {
+    //   // }
+    // }
+
   }, {
     key: 'render',
     value: function render() {
